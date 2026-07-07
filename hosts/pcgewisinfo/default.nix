@@ -9,6 +9,7 @@
     ./comin.nix
     ./secrets.nix
     ./netbird.nix
+    ./schedule.nix
     ./debug.nix
   ];
 
