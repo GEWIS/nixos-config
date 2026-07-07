@@ -9,6 +9,8 @@
     ./comin.nix
     ./secrets.nix
     ./netbird.nix
+    ./networking.nix
+    ./printers.nix
     ./schedule.nix
     ./debug.nix
   ];
@@ -20,9 +22,6 @@
   # canTouchEfiVariables=false makes bootctl install the removable fallback
   # path (\EFI\BOOT\BOOTX64.EFI) that firmware boots without an NVRAM entry.
   boot.loader.efi.canTouchEfiVariables = false;
-
-  networking.hostName = "pcgewisinfo";
-  networking.networkmanager.enable = true;
   time.timeZone = "Europe/Amsterdam";
 
   nix.settings.experimental-features = [
