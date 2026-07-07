@@ -1,0 +1,7 @@
+keys:
+  - &pcgewisinfo age1hde6y6ee9g0pnvgdluxjj6xq4plrsdq8f7mf4yv6xn465ucpw3hq47heg0
+creation_rules:
+  - path_regex: hosts/pcgewisinfo/secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *pcgewisinfo
