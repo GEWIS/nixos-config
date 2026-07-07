@@ -39,6 +39,18 @@ in
     extraArguments = [ "-d" ];
   };
 
+  # cage races i915: on some boots it starts before the DRM card (card1) is
+  # registered and exits 1. The upstream unit has no Restart, so it dies for
+  # good. Retry until the GPU is up; the card appears within a second or two.
+  systemd.services.cage-tty1 = {
+    startLimitIntervalSec = 60;
+    startLimitBurst = 10;
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+  };
+
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
