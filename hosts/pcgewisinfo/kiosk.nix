@@ -3,11 +3,14 @@
 let
   kioskLauncher = pkgs.writeShellScript "kiosk-launch" ''
     url="$(cat ${config.sops.secrets.kioskUrl.path})"
+    # Wait until the kiosk URL is reachable before launching.
+    until ${pkgs.curl}/bin/curl -sSf --max-time 5 -o /dev/null "$url"; do
+      sleep 2
+    done
     exec ${pkgs.chromium}/bin/chromium \
-      --kiosk --incognito --noerrdialogs --disable-infobars \
-      --no-first-run --start-fullscreen \
-      --check-for-update-interval=31536000 \
-      "$url"
+      --app="$url" \
+      --ozone-platform=wayland \
+      --user-data-dir="$(mktemp -d)" \
   '';
 in
 {
