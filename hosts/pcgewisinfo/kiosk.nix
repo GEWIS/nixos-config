@@ -30,7 +30,15 @@ in
         "audio"
       ];
     };
+
+    users.cbc = {
+      isNormalUser = true;
+      hashedPassword = "";
+      extraGroups = [ "wheel" ];
+    };
   };
+
+  security.sudo.wheelNeedsPassword = false;
 
   services.cage = {
     enable = true;
