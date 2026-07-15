@@ -69,7 +69,7 @@ in
   environment.systemPackages = [ pkgs.firefox ];
 
   nixpkgs.config.allowUnfreePredicate =
-    pkg: builtins.elem (lib.getName pkg) [ "corefonts" ];
+    pkg: builtins.elem (lib.getName pkg) [ "corefonts" "vista-fonts" ];
 
   fonts = {
     enableDefaultPackages = true;
@@ -83,7 +83,7 @@ in
       ubuntu-classic
       corefonts
       font-awesome
-      google-fonts
+      vista-fonts
     ];
     fontconfig = {
       enable = true;
