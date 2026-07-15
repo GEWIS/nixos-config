@@ -83,13 +83,7 @@ in
       ubuntu-classic
       corefonts
       font-awesome
-      roboto
-      open-sans
-      source-sans-pro
-      source-serif-pro
-      source-code-pro
-      fira-code
-      jetbrains-mono
+      google-fonts
     ];
     fontconfig = {
       enable = true;
