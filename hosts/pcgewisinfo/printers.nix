@@ -9,8 +9,8 @@
           path = ./assets/PSGEWIS1.ppd;
         }
         {
-          name = "share/cups/model/PSGEWIS2.ppd";
-          path = ./assets/PSGEWIS1.ppd;
+          name = "share/cups/model/PSGEWIS3.ppd";
+          path = ./assets/PSGEWIS3.ppd;
         }
       ]
     );
@@ -24,9 +24,9 @@
         model = "PSGEWIS1.ppd";
       }
       {
-        name = "PSGEWIS2";
+        name = "PSGEWIS3";
         deviceUri = "ipp://10.0.0.11:631/ipp/print";
-        model = "PSGEWIS2.ppd";
+        model = "PSGEWIS3.ppd";
       }
     ];
     ensureDefaultPrinter = "PSGEWIS1";
