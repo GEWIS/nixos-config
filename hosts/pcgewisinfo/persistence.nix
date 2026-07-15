@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   environment.persistence."/persist" = {
@@ -7,7 +7,7 @@
       "/var/lib/nixos"
       "/var/lib/systemd"
       "/var/lib/comin"
-      "/var/log/journal" # for persistent journalctl logs
+      "/var/log/journal"
     ];
     files = [
       "/etc/machine-id"

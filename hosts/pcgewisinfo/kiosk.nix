@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   kioskLauncher = pkgs.writeShellScript "kiosk-launch" ''
@@ -7,10 +7,10 @@ let
     until ${pkgs.curl}/bin/curl -sSf --max-time 5 -o /dev/null "$url"; do
       sleep 2
     done
-    exec ${pkgs.chromium}/bin/chromium \
-      --app="$url" \
-      --ozone-platform=wayland \
-      --user-data-dir="$(mktemp -d)" \
+    exec env MOZ_ENABLE_WAYLAND=1 ${pkgs.firefox}/bin/firefox \
+      --kiosk \
+      --profile "$(mktemp -d)" \
+      "$url"
   '';
 in
 {
@@ -71,5 +71,39 @@ in
     hybrid-sleep.enable = false;
   };
 
-  environment.systemPackages = [ pkgs.chromium ];
+  environment.systemPackages = [ pkgs.firefox ];
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg: builtins.elem (lib.getName pkg) [ "corefonts" ];
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      liberation_ttf
+      dejavu_fonts
+      ubuntu-classic
+      corefonts
+      font-awesome
+      roboto
+      open-sans
+      source-sans-pro
+      source-serif-pro
+      source-code-pro
+      fira-code
+      jetbrains-mono
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "Noto Serif" "Liberation Serif" ];
+        sansSerif = [ "Noto Sans" "Liberation Sans" ];
+        monospace = [ "Noto Sans Mono" "Liberation Mono" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
 }

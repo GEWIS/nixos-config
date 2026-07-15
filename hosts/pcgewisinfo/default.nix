@@ -18,14 +18,30 @@
   system.stateVersion = "26.05";
 
   boot.loader.systemd-boot.enable = true;
-  # Kiosk firmware often drops NVRAM boot entries and falls through to PXE.
-  # canTouchEfiVariables=false makes bootctl install the removable fallback
-  # path (\EFI\BOOT\BOOTX64.EFI) that firmware boots without an NVRAM entry.
   boot.loader.efi.canTouchEfiVariables = false;
   time.timeZone = "Europe/Amsterdam";
+  nix = {
+    settings = {
+      substituters = [ "https://gewis.cachix.org" ];
+      trusted-public-keys = [
+        "gewis.cachix.org-1:bOcor+MaaLuUJN0Yj/IHCXsOQWm/RxSokm6BHGcbF5k="
+      ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      trusted-users = [
+        "cbc"
+        "root"
+      ];
+    };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
 }
