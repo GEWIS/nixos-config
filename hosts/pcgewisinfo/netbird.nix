@@ -26,6 +26,11 @@
     resolved.enable = true;
 
     openssh.enable = true;
+    openssh.openFirewall = false;
+    openssh.settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
+    };
     openssh.hostKeys = [
       {
         path = "/etc/ssh/ssh_host_ed25519_key";
@@ -34,6 +39,9 @@
     ];
   };
   environment.persistence."/persist" = {
+    directories = [
+      "/var/lib/netbird"
+    ];
     files = [
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"

@@ -7,5 +7,6 @@
     secrets.kioskUrl = {
       owner = "gewis";
     };
+    secrets.cbcPassword.neededForUsers = true;
   };
 }

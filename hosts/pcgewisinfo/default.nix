@@ -12,7 +12,6 @@
     ./networking.nix
     ./printers.nix
     ./schedule.nix
-    ./debug.nix
   ];
 
   system.stateVersion = "26.05";

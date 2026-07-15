@@ -34,7 +34,7 @@ _: {
     useDHCP = false;
     firewall.interfaces.enp1s0 = {
       allowedUDPPorts = [ 53 67 ];
-      allowedTCPPorts = [ 53 ];
+      allowedTCPPorts = [ 53 22 ];
     };
     interfaces = {
       "enp0s31f6".useDHCP = true;

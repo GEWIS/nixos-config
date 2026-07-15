@@ -3,7 +3,6 @@
 let
   kioskLauncher = pkgs.writeShellScript "kiosk-launch" ''
     url="$(cat ${config.sops.secrets.kioskUrl.path})"
-    # Wait until the kiosk URL is reachable before launching.
     until ${pkgs.curl}/bin/curl -sSf --max-time 5 -o /dev/null "$url"; do
       sleep 2
     done
@@ -33,7 +32,7 @@ in
 
     users.cbc = {
       isNormalUser = true;
-      hashedPassword = "";
+      hashedPasswordFile = config.sops.secrets.cbcPassword.path;
       extraGroups = [ "wheel" ];
     };
   };
@@ -47,10 +46,6 @@ in
     extraArguments = [ "-d" ];
   };
 
-  # cage draws a cursor whenever libinput reports a pointer device, and uses
-  # client-side cursors so no XCURSOR theme can hide it. Tell libinput to ignore
-  # every mouse instead: no pointer device -> no cursor. Keyboards are separate
-  # device nodes and keep working.
   services.udev.extraRules = ''
     SUBSYSTEM=="input", ENV{ID_INPUT_MOUSE}=="1", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
